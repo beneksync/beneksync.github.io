@@ -1,14 +1,14 @@
 self.addEventListener('install', (e) => {
     e.waitUntil(
       caches.open('1-klasa-store').then((cache) => cache.addAll([
-        '/EmilkaApp/',
-        '/EmilkaApp/index.html',
-        '/EmilkaApp/index.js',
-        '/EmilkaApp/assets/finger-one.jpg',
-        '/EmilkaApp/assets/finger-two.jpg',
-        '/EmilkaApp/assets/finger-three.jpg',
-        '/EmilkaApp/assets/finger-four.jpg',
-        '/EmilkaApp/assets/finger-five.jpg'
+        '/',
+        '/index.html',
+        '/index.js',
+        '/assets/finger-one.jpg',
+        '/assets/finger-two.jpg',
+        '/assets/finger-three.jpg',
+        '/assets/finger-four.jpg',
+        '/assets/finger-five.jpg'
       ])),
     );
   });
