@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "background_color": "purple",
+    "description": "Aplikacja do powtarzania wiadomości z 1 klasy szkoły podstawowej",
+    "display": "standalone",
+    "icons": [
+      {
+        "src": "icon/fox-icon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "name": "Powtarzanie 1 klasa",
+    "short_name": "1 klasa",
+    "start_url": "/EmilkaApp/index.html"
+  }
