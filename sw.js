@@ -1,5 +1,5 @@
-self.addEventListener('install', (e) => {
-    e.waitUntil(
+self.addEventListener('install', (event) => {
+    event.waitUntil(
       caches.open('1-klasa-store').then((cache) => cache.addAll([
         '/',
         '/index.html',
@@ -12,10 +12,13 @@ self.addEventListener('install', (e) => {
       ])),
     );
   });
-  
-  self.addEventListener('fetch', (e) => {
+self.addEventListener('activate', (event) => {
+  console.log('V1 now ready to handle fetches!');
+})
+
+  self.addEventListener('fetch', (event) => {
     console.log(e.request.url);
-    e.respondWith(
-      caches.match(e.request).then((response) => response || fetch(e.request)),
+    event.respondWith(
+      caches.match(event.request).then((response) => response || fetch(event.request)),
     );
   });
