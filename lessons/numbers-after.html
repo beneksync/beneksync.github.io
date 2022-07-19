@@ -11,7 +11,7 @@
 
       </div>
       <template class="main-menu-template">
-        <h2>Ile widzisz palcy?</h2>
+        <h2>Co jest po liczbie...?</h2>
         <button id="start-button" class="fixed answer" style="display: block;">Start</button>
         <script>
           const startButton = document.querySelector('#start-button')
@@ -25,7 +25,8 @@
         </script>
       </template>
       <template class="game-template">
-        <img id="img-container" src="../assets/fingers.svg" alt=""/>
+        <!-- <img id="img-container" src="../assets/fingers.svg" alt=""/> -->
+        <h1 id="number-container" style="text-align: center; font-size: 240px;"></h1>
         <!-- <progress max="100" value="70">70%</progress> -->
         <div id="group-buttons" class="group fixed">
           <button id="good-button" class="answer good"><span>Dobrze</span></button>
@@ -33,14 +34,19 @@
         </div>
         <script>
           const fingers = [
-            { id: 1, file: 'finger-one.jpg' }, 
-            { id: 2, file: 'finger-two.jpg' },
-            { id: 3, file: 'finger-three.jpg' },
-            { id: 4, file: 'finger-four.jpg' },
-            { id: 5, file: 'finger-five.jpg' }
+            { id: 1, char: '0' }, 
+            { id: 2, char: '1' },
+            { id: 3, char: '2' },
+            { id: 4, char: '3' },
+            { id: 5, char: '4' },
+            { id: 6, char: '5' },
+            { id: 7, char: '6' },
+            { id: 8, char: '7' },
+            { id: 9, char: '8' },
+            { id: 10, char: '9' }
           ]
           let randFingers = []
-          const imageContainer = document.querySelector('#img-container')
+          const numberContainer = document.querySelector('#number-container')
           const goodButton = document.querySelector('#good-button')
           const badButton = document.querySelector('#bad-button')
           
@@ -78,12 +84,11 @@
             } else {
               rounds--
               let number = Math.floor(Math.random() * count)
-              let positions = [0, -345, -690, -1035, -1382]
               let id = randFingers[number].id
-              let position = positions[id-1]
 
+              numberContainer.textContent = randFingers[number].char
               // imageContainer.src = '../assets/' + randFingers[number].file
-              imageContainer.style['object-position'] = `${position}px -206px`
+              //imageContainer.style['object-position'] = `${position}px -206px`
               lastFinger = randFingers[number].id
               removeFinger(lastFinger)
             }
