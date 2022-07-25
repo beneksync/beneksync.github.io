@@ -25,6 +25,7 @@
         </script>
       </template>
       <template class="game-template">
+        <progress id="progression" style="width: 100%; margin: 0;"></progress>
         <!-- <img id="img-container" src="../assets/fingers.svg" alt=""/> -->
         <h1 id="number-container" style="text-align: center; font-size: 240px;"></h1>
         <!-- <progress max="100" value="70">70%</progress> -->
@@ -49,18 +50,29 @@
           const numberContainer = document.querySelector('#number-container')
           const goodButton = document.querySelector('#good-button')
           const badButton = document.querySelector('#bad-button')
+          const progression = document.querySelector('#progression')
           
           const groupButtons = document.querySelector('#group-buttons')
           
 
           goodButton.addEventListener('click', () => {
             points++
+            moveProgress()
             generate()
           })
-          badButton.addEventListener('click', generate)
+          badButton.addEventListener('click', () => {
+            moveProgress()
+            generate()
+          })
+
+          function moveProgress() {
+            progression.setAttribute('value', 60 - rounds)
+          }
 
           function start() {
             rounds = 60
+            progression.setAttribute('max', rounds)
+            progression.setAttribute('value', 0)
             refill()
             generate()
           }

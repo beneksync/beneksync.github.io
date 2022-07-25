@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <!-- <link href='http://fonts.googleapis.com/css?family=Scada&subset=latin,latin-ext' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="/lessons/fingers.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> -->
   </head>
   <body>
       <div class="main-container">
 
       </div>
       <template class="main-menu-template">
-        <h2>Pytania specjalne.</h2>
+        <h2>Pytania specjalne. (3, 4)</h2>
         <button id="start-button" class="fixed answer" style="display: block;">Start</button>
         <script>
           const startButton = document.querySelector('#start-button')
@@ -25,6 +26,7 @@
         </script>
       </template>
       <template class="game-template">
+        <progress id="progression" style="width: 100%; margin: 0;"></progress>
         <!-- <img id="img-container" src="../assets/fingers.svg" alt=""/> -->
         <h1 id="number-container" style="text-align: center; font-size: 240px; color: #FFA500;"></h1>
         <!-- <progress max="100" value="70">70%</progress> -->
@@ -34,27 +36,44 @@
         </div>
         <script>
           const fingers = [
-            { id: 1, char: '3', file: 'trzy.wav', type: 'audio' }, 
-            { id: 2, char: '4', file: 'cztery.wav', type: 'audio' },
-            { id: 3, char: '13', file: 'trzynaście.wav', type: 'audio' },
-            { id: 4, char: '14', file: 'czternaście.wav', type: 'audio' }
+            { id: 1, char: '3', file: '', type: 'audio' }, 
+            { id: 2, char: '4', file: '', type: 'audio' },
+            { id: 3, char: 'A', file: '', type: 'audio' },
+            { id: 4, char: 'B', file: '', type: 'audio' }
+            // { id: 3, char: '13', file: 'trzynaście.wav', type: 'audio' },
+            // { id: 4, char: '14', file: 'czternaście.wav', type: 'audio' }
           ]
           let randFingers = []
           const numberContainer = document.querySelector('#number-container')
           const goodButton = document.querySelector('#good-button')
           const badButton = document.querySelector('#bad-button')
+          const progression = document.querySelector('#progression')
           
           const groupButtons = document.querySelector('#group-buttons')
           
 
           goodButton.addEventListener('click', () => {
+            // const jsConfetti = new JSConfetti()
+            // jsConfetti.addConfetti({
+            //   emojis: ['⚡️', '💥', '✨', '💫', '🌸', '🌞'],
+            // })
             points++
+            moveProgress()
             generate()
           })
-          badButton.addEventListener('click', generate)
+          badButton.addEventListener('click', () => {
+            moveProgress()
+            generate()
+          })
+
+          function moveProgress() {
+            progression.setAttribute('value', 60 - rounds)
+          }
 
           function start() {
             rounds = 60
+            progression.setAttribute('max', rounds)
+            progression.setAttribute('value', 0)
             refill()
             generate()
           }
@@ -131,6 +150,8 @@
       </template>
       
       <script>
+        // import JSConfetti from 'js-confetti'
+
         const mainContainer = document.querySelector('.main-container')
         const mainMenuTemplate = document.querySelector('.main-menu-template').content.cloneNode(true)
         const gameTemplate = document.querySelector('.game-template').content.cloneNode(true)

@@ -165,3 +165,6 @@
     background-color: blue;
     z-index: 2;
   } */
+  .hidden {
+    visibility: hidden;
+  }

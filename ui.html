@@ -1,0 +1,13 @@
+<template id="start-template">
+	<h2></h2>
+	<button id="start-button" class="fixed answer" style="display: block;">Start</button>
+	<script>
+			const startButton = document.querySelector('#start-button')
+			startButton.addEventListener('click', () => {
+			//startButton.classList.add('hide')
+			//groupButtons.classList.remove('hide')
+			clearMainContainer()
+			mainContainer.appendChild(gameTemplate)
+			})
+	</script>
+</template>

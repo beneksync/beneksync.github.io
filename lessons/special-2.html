@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <!-- <link href='http://fonts.googleapis.com/css?family=Scada&subset=latin,latin-ext' rel='stylesheet' type='text/css'> -->
     <link rel="stylesheet" href="/lessons/fingers.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script> -->
   </head>
   <body>
-      <div class="main-container"></div>
+      <div class="main-container">
+
+      </div>
       <template class="main-menu-template">
-        <h2>Nauka. Pytania specjalne.</h2>
+        <h2>Pytania specjalne. (13, 14)</h2>
         <button id="start-button" class="fixed answer" style="display: block;">Start</button>
         <script>
           const startButton = document.querySelector('#start-button')
@@ -25,32 +28,46 @@
       <template class="game-template">
         <progress id="progression" style="width: 100%; margin: 0;"></progress>
         <!-- <img id="img-container" src="../assets/fingers.svg" alt=""/> -->
-        <h1 id="answer-container" style="text-align: center; font-size: 320px; margin-top: 0; margin-bottom: 0; color: #FFA500;"></h1>
-        <h2 id="answer-container-2" style="text-align: center; font-size: 100px; margin-top: 0; margin-bottom: 0; color: #FFA500;"></h2>
-        
+        <h1 id="number-container" style="text-align: center; font-size: 240px; color: #FFA500;"></h1>
+        <!-- <progress max="100" value="70">70%</progress> -->
         <div id="group-buttons" class="group fixed">
-          <button id="next-button" class="answer good"><span>Następne</span></button>
+          <button id="good-button" class="answer good"><span>Dobrze</span></button>
+          <button id="bad-button" class="answer bad"><span>Źle</span></button>
         </div>
         <script>
           const fingers = [
-            { id: 1, char: '3', text: 'trzy', file: 'trzy.mp3', type: 'audio' }, 
-            { id: 2, char: '4', text: 'cztery', file: 'cztery.mp3', type: 'audio' }
-            // { id: 3, char: '13', text: 'trzynaście', file: 'trzynaście.mp3', type: 'audio' },
-            // { id: 4, char: '14', text: 'czternaście', file: 'czternaście.mp3', type: 'audio' }
+            { id: 1, char: '13', file: '', type: 'audio' }, 
+            { id: 2, char: '14', file: '', type: 'audio' },
+            { id: 3, char: 'A', file: '', type: 'audio' },
+            { id: 4, char: 'B', file: '', type: 'audio' }
+            // { id: 3, char: '13', file: 'trzynaście.wav', type: 'audio' },
+            // { id: 4, char: '14', file: 'czternaście.wav', type: 'audio' }
           ]
           let randFingers = []
-          const answerContainer = document.querySelector('#answer-container')
-          const answerContainer2 = document.querySelector('#answer-container-2')
-          const nextButton = document.querySelector('#next-button')
+          const numberContainer = document.querySelector('#number-container')
+          const goodButton = document.querySelector('#good-button')
+          const badButton = document.querySelector('#bad-button')
           const progression = document.querySelector('#progression')
           
           const groupButtons = document.querySelector('#group-buttons')
           
-          nextButton.addEventListener('click', () => {
+
+          goodButton.addEventListener('click', () => {
+            // const jsConfetti = new JSConfetti()
+            // jsConfetti.addConfetti({
+            //   emojis: ['⚡️', '💥', '✨', '💫', '🌸', '🌞'],
+            // })
+            points++
+            moveProgress()
             generate()
-            round++
-            progression.setAttribute('value', round)
           })
+          badButton.addEventListener('click', () => {
+            moveProgress()
+            generate()
+          })
+          function moveProgress() {
+            progression.setAttribute('value', 60 - rounds)
+          }
 
           function start() {
             rounds = 60
@@ -81,11 +98,7 @@
               let number = Math.floor(Math.random() * count)
               let id = randFingers[number].id
 
-              answerContainer.textContent = randFingers[number].char
-              answerContainer2.textContent = randFingers[number].text
-              var audio = new Audio('../assets/' + randFingers[number].file);
-              audio.play();
-              
+              numberContainer.textContent = randFingers[number].char
               // imageContainer.src = '../assets/' + randFingers[number].file
               //imageContainer.style['object-position'] = `${position}px -206px`
               lastFinger = randFingers[number].id
@@ -110,25 +123,25 @@
       </template>
       <template class="results-template">
         <!-- <p class="result" style="text-align: center;"></p> -->
-        <!-- <div class="group static" style="">
+        <div class="group static" style="">
           <button class="answer good" style="height: auto; text-transform: none;"><p id="result-good" style="font-size: 38px; margin: 0;">8</p><p style="margin: 0;">Poprawnych</p></button>
           <button class="answer bad" style="height: auto; text-transform: none;"><p id="result-bad" style="font-size: 38px; margin: 0;">2</p><p style="margin: 0;">Błędnych</p></button>
-        </div> -->
+        </div>
         <div class="fixed group rows">
-          <!-- <button id="analise-button" class="answer" style="display: block;"><span>Sprawdź błędy</span></button> -->
+          <button id="analise-button" class="answer" style="display: block;"><span>Sprawdź błędy</span></button>
           <button id="repeat-button" class="answer" style="display: block;"><span>Powtórz</span></button>
           <button id="back-menu-button" class="answer" style="display: block;"><span>Menu</span></button>
         </div>
         <script>
-          // const good = document.querySelector('#result-good')
-          // const bad = document.querySelector('#result-bad')
+          const good = document.querySelector('#result-good')
+          const bad = document.querySelector('#result-bad')
           const backMenu = document.querySelector('#back-menu-button')
           const repeat = document.querySelector('#repeat-button')
           backMenu.addEventListener('click', function() {
             window.location.href = '../'
           })
           repeat.addEventListener('click', function() {
-            window.location.href = 'teach-mode-special.html'
+            window.location.href = 'fingers.html'
           })
           good.textContent = points
           bad.textContent = 60 - points
@@ -136,11 +149,13 @@
       </template>
       
       <script>
+        // import JSConfetti from 'js-confetti'
+
         const mainContainer = document.querySelector('.main-container')
         const mainMenuTemplate = document.querySelector('.main-menu-template').content.cloneNode(true)
         const gameTemplate = document.querySelector('.game-template').content.cloneNode(true)
         const resultsTemplate = document.querySelector('.results-template').content.cloneNode(true)
-        let rounds = 0, lastFinger = 0, round = 0;
+        let rounds = 0, points = 0, lastFinger = 0, round = 0
 
         mainContainer.appendChild(mainMenuTemplate)
         function clearMainContainer() {
