@@ -21,6 +21,7 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
 
+    
     outline: none;
   }
   h2 {
